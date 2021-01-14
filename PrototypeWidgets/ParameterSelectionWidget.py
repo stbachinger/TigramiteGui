@@ -10,8 +10,9 @@ class ParameterSelectionWidget:
         self.add_parameter_button = widgets.Button(
             description="+"
         )
+        self.parameter_dropdown = widgets.Dropdown(options=values)
         self.parameters_widget = widgets.VBox(
-            children=[widgets.HBox([values, self.add_parameter_button])]
+            children=[widgets.HBox([widgets.Dropdown(options=values), self.add_parameter_button])]
         )
         self.parameter_accordion = widgets.Accordion(
             children=[self.parameters_widget]
