@@ -1,0 +1,5 @@
+setuptools~=51.0.0
+numpy~=1.19.2
+ipywidgets~=7.6.3
+matplotlib~=3.3.2
+tigramite~=4.2.1.4

@@ -10,5 +10,12 @@ setup(name='TigramiteGUIPrototype',
       packages=find_namespace_packages(),
       install_requires=[
           'ipywidgets',
+          'numpy',
+          'scipy',
+          'matplotlib',
+          'sklearn',
+          'networkx',
+          'cython',
+          'mpi4py'
       ],
       zip_safe=False)

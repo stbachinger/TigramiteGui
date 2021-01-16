@@ -1,6 +1,5 @@
 # this includes all the widgets needed for the notebook
 import os
-import PrototypeWidgets.constants as constants
 import ipywidgets as widgets
 from ipywidgets import Widget
 
@@ -38,6 +37,7 @@ def data_upload_widget(path_of_data, name):
         disabled=False
     )
 
+
 class ParameterSelectionWidget(Widget):
     """Parameter Selection Template; should have an accordion widget filled with a Drop-down widget displaying values"""
 
@@ -72,7 +72,7 @@ class ParameterSelectionWidget(Widget):
     def add_new_parameter(self):
         parameter = self.parameters[self.parameter_dropdown.value]
         print(parameter)
-        descr = parameter["name"] # parameter.name
+        descr = parameter["name"]  # parameter.name
         if parameter["dtype"] == "int":
             return widgets.IntSlider(descrition=descr)
         elif parameter["dtype"] == "float":
@@ -97,33 +97,38 @@ class ParameterSelectionWidget(Widget):
             self.parameter_dropdown.value = change['new']
 
 
-def dropdown_selection_widget(options, value, description, parameter_dict):
-    drop_down = widgets.Dropdown(
-        options=options,
-        value=value,
-        description=description,
-        disabled=False
-    )
-    parameter_accordion = ParameterSelectionWidget(parameter_dict[drop_down.value])
-    return widgets.VBox([drop_down, parameter_accordion.show()])
+class DropdownSelectionWidget(Widget):
+
+    def __init__(self, options, value, description, parameter_dict, **kwargs):
+        super().__init__(**kwargs)
+        self.drop_down = widgets.Dropdown(
+            options=options,
+            value=value,
+            description=description,
+            disabled=False
+        )
+        self.parameter_accordion = ParameterSelectionWidget(parameter_dict[self.drop_down.value])
+
+    def show(self):
+        return widgets.VBox([self.drop_down, self.parameter_accordion.show()])
+
+    def get_value(self):
+        return self.drop_down.value
 
 
 def run_button_widget():
     return widgets.Button(description="Run")
 
 
-def accordionWidget(path_of_data):
-    methods_widget = dropdown_selection_widget(constants.METHODS, constants.METHODS[0], "Methods:", constants.METHOD_PARAMETER)
-    test_widget = dropdown_selection_widget(constants.TESTS, constants.TESTS[0], "Tests:", constants.TEST_PARAMETER)
-    data_widget = data_upload_widget(path_of_data, "Data:")
-    mask_widget = data_upload_widget(path_of_data, "Masks: ")
-    accordion = widgets.Accordion(
-        children=[data_widget, mask_widget, methods_widget, test_widget])
-    accordion.set_title(2, 'Method')
-    accordion.set_title(3, 'Test')
-    accordion.set_title(0, 'Data')
-    accordion.set_title(1, 'Mask')
-    return accordion
+def plots_widget(plots, value):
+    return widgets.Dropdown(
+        options=plots,
+        value=value,
+        description="Plot:",
+        disabled=False,
+        continuous_update=False,
+    )
 
 
-
+def plots_show_button():
+    return widgets.Button(description="Show")
