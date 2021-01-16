@@ -1,5 +1,4 @@
 import ipywidgets as widgets
-from .parameterSelectionWidget import ParameterSelectionWidget
 
 
 '''Project Window should contain: SelectionWindow, PlotWindow, TerminalWindow'''

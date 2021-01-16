@@ -1,2 +1,3 @@
-from .widgets import MethodWidget
-from .parameterSelectionWidget import ParameterSelectionWidget
+from .widgets import *
+from .selectionWindow import *
+from .constants import *
