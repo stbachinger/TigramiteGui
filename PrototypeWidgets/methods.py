@@ -6,7 +6,7 @@ from tigramite.independence_tests import ParCorr, GPDC, CMIknn, CMIsymb
 from tigramite.pcmci import PCMCI
 
 
-def calculateResults(Data, Mask, Method, Test, terminal_out):
+def calculateResults(Data, Mask, Method, Test, method_params, test_params, terminal_out):
     with terminal_out:
         data = np.load(Data)
         if (Mask != "none"):
@@ -14,15 +14,21 @@ def calculateResults(Data, Mask, Method, Test, terminal_out):
             dataframe = pp.DataFrame(data, mask=mask)
         else:
             dataframe = pp.DataFrame(data)
-        cond_ind_test = getCondIndTest(Test)
+        cond_ind_test = getCondIndTest(Test, test_params)
         pcmci = PCMCI(
             dataframe=dataframe,
             cond_ind_test=cond_ind_test,
             verbosity=1)
-        if Method == "PCMCI":
-            results = pcmci.run_pcmci(tau_max=8, pc_alpha=None)
-        elif Method == "PCMCI+":
-            results = pcmci.run_pcmciplus()
+        if method_params:
+            if Method == "PCMCI":
+                results = pcmci.run_pcmci(**method_params)
+            elif Method == "PCMCI+":
+                results = pcmci.run_pcmciplus(**method_params)
+        else:
+            if Method == "PCMCI":
+                results = pcmci.run_pcmci()
+            elif Method == "PCMCI+":
+                results = pcmci.run_pcmciplus()
     return pcmci, results
 
 
@@ -68,15 +74,27 @@ def makePlot(plot_type, pcmci, results, plot_out):
     return True
 
 
-def getCondIndTest(Test):
+def getCondIndTest(Test, test_params):
     #print(Test)
-    if Test == "ParCorr":
-        return ParCorr(significance='analytic')
-    elif Test == "GPDC":
-        return GPDC()
-    elif Test == "CMIknn":
-        return CMIknn()
-    elif Test == "CMIsymb":
-        return CMIsymb()
+    if test_params:
+        if Test == "ParCorr":
+            return ParCorr(**test_params)
+        elif Test == "GPDC":
+            return GPDC(**test_params)
+        elif Test == "CMIknn":
+            return CMIknn(**test_params)
+        elif Test == "CMIsymb":
+            return CMIsymb(**test_params)
+        else:
+            raise Exception("Something is not right here.")
     else:
-        raise Exception("Something is not right here.")
+        if Test == "ParCorr":
+            return ParCorr(significance='analytic')
+        elif Test == "GPDC":
+            return GPDC()
+        elif Test == "CMIknn":
+            return CMIknn()
+        elif Test == "CMIsymb":
+            return CMIsymb()
+        else:
+            raise Exception("Something is not right here.")

@@ -19,6 +19,7 @@ class ProjectWindow:
         self.run_button.on_click(self.on_run_button_clicked)
         self.terminal_out = TerminalOutput()
         self.plot_out = PlotOut()
+        self.plots_button.on_click(self.on_plot_button_clicked)
 
     def show(self):
         return widgets.VBox(
@@ -32,9 +33,9 @@ class ProjectWindow:
             ])
 
     def on_run_button_clicked(self, b):
-        data, mask, method, test = self.SelectionWindow.get_current_values()
-        self.pcmci, self.results = calculateResults(data, mask, method, test, self.terminal_out.get_output())
+        data, mask, method, test, method_params, test_params = self.SelectionWindow.get_current_values()
+        self.pcmci, self.results = calculateResults(data, mask, method, test, method_params, test_params, self.terminal_out.get_output())
 
     def on_plot_button_clicked(self, b):
         plot_type = self.plot_out.get_current_values()
-        makePlot(plot_type, self.pcmci, self.results, self.plot_out.get_output())
+        result = makePlot(plot_type, self.pcmci, self.results, self.plot_out.get_output())

@@ -24,4 +24,4 @@ class SelectionWindow(Widget):
         return self.accordion
 
     def get_current_values(self):
-        return self.data_widget.value, self.mask_widget.value, self.methods_widget.get_value(), self.test_widget.get_value()
+        return self.data_widget.value, self.mask_widget.value, self.methods_widget.get_value(), self.test_widget.get_value(), self.methods_widget.get_parameter_values(), self.test_widget.get_parameter_values()

@@ -43,58 +43,89 @@ class ParameterSelectionWidget(Widget):
 
     def __init__(self, parameter_dict, **kwargs):
         super().__init__(**kwargs)
-        parameters = parameter_dict
-        self.parameters = parameters
+        self.parameters = None
         self.add_parameter_button = widgets.Button(
             description="+"
         )
+        self.add_parameter_button.on_click(self.on_button_clicked)
+        self.parameter_dropdown = None
+        self.parameters_widget = None
+        self.parameter_accordion = None
+        self.current_parameter = None
+        self.used_parameters = []
+        self.setup(parameter_dict)
+
+    def setup(self, params):
+        self.parameters = params
+        #print(params)
         values = []
-        for x in parameters:
+        for x in self.parameters:
             values.append(x)
         self.parameter_dropdown = widgets.Dropdown(options=values)
+        self.parameter_dropdown.observe(self.on_change, names="value")
         self.parameters_widget = widgets.VBox(
-            children=[widgets.HBox([widgets.Dropdown(options=values), self.add_parameter_button])]
+            children=[widgets.HBox([self.parameter_dropdown, self.add_parameter_button])]
         )
         self.parameter_accordion = widgets.Accordion(
             children=[self.parameters_widget]
         )
         self.parameter_accordion.set_title(0, "Parameter Selection")
-        self.add_parameter_button.on_click(self.on_button_clicked)
-        self.parameter_dropdown.observe(self.on_change)
+        self.current_parameter = values[0]
+        return self
 
     def show(self):
         return self.parameter_accordion
 
     def on_button_clicked(self, b):
         widget = self.add_new_parameter()
-        self.parameters_widget.children = tuple(list(self.parameters_widget.children) + [widget])
+        self.used_parameters.append(widget)
+        self.parameters_widget.children = tuple(list(self.parameters_widget.children) + [widget.show()])
 
     def add_new_parameter(self):
-        parameter = self.parameters[self.parameter_dropdown.value]
-        print(parameter)
-        descr = parameter["name"]  # parameter.name
-        if parameter["dtype"] == "int":
-            return widgets.IntSlider(descrition=descr)
-        elif parameter["dtype"] == "float":
-            return widgets.FloatSlider(description=descr)
-        elif parameter["dtype"] == "str":
-            return widgets.Text(description=descr)
-        elif parameter["dtype"] == "bool":
-            return widgets.Checkbox()
-        elif parameter["dtype"] == "dict":
-            return widgets.Checkbox()
-        elif parameter["dtype"] == "select":
-            return widgets.Checkbox()
-        else:
-            raise Exception("something is wrong!")
-        print("tada")
+        parameter = self.parameters[self.current_parameter]
+        return Parameter(parameter)
 
     def on_change(self, change):
-        print(change)
-        print("called")
         if change['type'] == 'change' and change['name'] == 'value':
-            print("changed to %s" % change['new'])
-            self.parameter_dropdown.value = change['new']
+            self.current_parameter = change['new']
+
+    def get_currently_selected_parameters(self):
+        dict_values = {}
+        for para in self.used_parameters:
+            name, value = para.get_current_value()
+            dict_values[name] = value
+        return dict_values
+
+    def update(self, params):
+        return self.setup(params)
+
+
+class Parameter(Widget):
+    def __init__(self, parameter, **kwargs):
+        super().__init__(**kwargs)
+        self.name = '%s' % parameter["name"]
+        self.para_dict = parameter
+        self.parameter = None
+        if parameter["dtype"] == "int":
+            self.parameter = widgets.IntSlider(description=self.name)
+        elif parameter["dtype"] == "float":
+            self.parameter = widgets.FloatSlider(description=self.name)
+        elif parameter["dtype"] == "str":
+            self.parameter = widgets.Text(description=self.name)
+        elif parameter["dtype"] == "bool":
+            self.parameter = widgets.Checkbox(description=self.name)
+        elif parameter["dtype"] == "dict":
+            self.parameter = widgets.Text(description=self.name)
+        elif parameter["dtype"] == "selection":
+            self.parameter = widgets.Dropdown(description=self.name, options=parameter["selection"])
+        else:
+            raise Exception("something is wrong!")
+
+    def show(self):
+        return self.parameter
+
+    def get_current_value(self):
+        return self.para_dict["name"], self.parameter.value
 
 
 class DropdownSelectionWidget(Widget):
@@ -107,13 +138,23 @@ class DropdownSelectionWidget(Widget):
             description=description,
             disabled=False
         )
-        self.parameter_accordion = ParameterSelectionWidget(parameter_dict[self.drop_down.value])
+        self.parameter_dict = parameter_dict
+        self.drop_down.observe(self.on_change, names="value")
+        self.parameter_accordion = ParameterSelectionWidget(self.parameter_dict[self.drop_down.value])
 
     def show(self):
         return widgets.VBox([self.drop_down, self.parameter_accordion.show()])
 
     def get_value(self):
         return self.drop_down.value
+
+    def on_change(self, change):
+        if change['type'] == 'change' and change['name'] == 'value':
+            print('change '+ change['new'])
+            self.parameter_accordion.update(self.parameter_dict[change['new']])
+
+    def get_parameter_values(self):
+        return self.parameter_accordion.get_currently_selected_parameters()
 
 
 def run_button_widget():

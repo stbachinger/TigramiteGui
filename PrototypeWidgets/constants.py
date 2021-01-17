@@ -98,20 +98,133 @@ METHOD_PARAMETER = {
     }
 }
 
-TEST_PARAMETER = {
-    "ParCorr": {
-        "selected_links": {
-            "name": "selected_links",
-            "dtype": "dict",
+
+def general_test_parameter():
+    return {
+        "mask_type": {
+            "name": "mask_type",
+            "dtype": "selection",
+            "selection": ['y', 'x', 'z', 'xy', 'xz', 'yz', 'xyz'],
             "default": "None"
-        }
-    },
-    "PCMCI+": {
-        "selected_links": {
-            "name": "selected_links",
+        }, "significance": {
+            "name": "significance",
+            "dtype": "selection",  # selection from  ‘analytic’, ‘fixed_thres’ and ‘shuffle_test’
+            "selection": ['analytic', 'fixed_thres', 'shuffle_test'],
+            "default": "'analytic'"
+        }, "fixed_thres": {
+            "name": "fixed_thres",
+            "dtype": "float",
+            "default": "0.1"
+        }, "sig_samples": {
+            "name": "sig_samples",
+            "dtype": "int",
+            "default": "1000"
+        }, "sig_blocklength": {
+            "name": "sig_blocklength",
+            "dtype": "int",
+            "default": "None"
+        }, "confidence": {
+            "name": "confidence",
+            "dtype": "str",
+            "default": "None"
+        }, "conf_lev": {
+            "name": "conf_lev",
+            "dtype": "float",
+            "default": "0.9"
+        }, "conf_samples": {
+            "name": "conf_samples",
+            "dtype": "int",
+            "default": "100"
+        }, "conf_blocklength": {
+            "name": "conf_blocklength",
+            "dtype": "int",
+            "default": "None"
+        }, "recycle_residuals": {
+            "name": "recycle_residuals",
+            "dtype": "bool",
+            "default": "None"
+        }, "verbosity": {
+            "name": "verbosity",
+            "dtype": "int",
+            "default": "0"
+        },
+    }
+
+
+TEST_PARAMETER = {
+    "ParCorr": general_test_parameter(),
+    "GPDC": general_test_parameter().update({
+        "null_dist_filename": {
+            "name": "null_dist_filename",
+            "dtype": "str",
+            "default": "None"
+        }, "gp_version": {
+            "name": "gp_version",
+            "dtype": "selection",
+            "selection": ['new', 'old'],
+            "default": "'new'"
+        }, "gp_params": {
+            "name": "gp_params",
             "dtype": "dict",
             "default": "None"
         },
-    }
+    }),
+    "CMIknn": general_test_parameter().update({
+        "knn": {
+            "name": "knn",
+            "dtype": "float",
+            "default": "0.2"
+        }, "shuffle_neighbors": {
+            "name": "shuffle_neighbors",
+            "dtype": "int",
+            "default": "10"
+        }, "transform": {
+            "name": "transform",
+            "dtype": "selection",
+            "selection": ['ranks', 'standardize', 'uniform', 'False'],
+            "default": "'ranks'"
+        }, "n_jobs": {
+            "name": "n_jobs",
+            "dtype": "int",
+            "default": "-1"
+        }, "significance": {
+            "name": "significance",
+            "dtype": "selection",
+            "selection": ['fixed_thres', 'shuffle_test'],
+            "default": "'shuffle_test'"
+        },
+    }),
+    "CMIsymb": general_test_parameter().update({
+        "n_symbs": {
+            "name": "n_symbs",
+            "dtype": "int",
+            "default": "None"
+        }, "sig_blocklength": {
+            "name": "sig_blocklength",
+            "dtype": "int",
+            "default": "1"
+        }, "conf_blocklength": {
+            "name": "conf_blocklength",
+            "dtype": "int",
+            "default": "1"
+        }, "significance": {
+            "name": "significance",
+            "dtype": "selection",
+            "selection": ['fixed_thres', 'shuffle_test'],
+            "default": "'shuffle_test'"
+        },
+    }),
+    "OracleCI": {
+        "link_coeffs": {
+            "name": "link_coeffs",
+            "dtype": "dict",
+            "default": "None"
+        }, "verbosity": {
+            "name": "verbosity",
+            "dtype": "int",
+            "default": "0"
+        },
+    },
 }
+
 DATA_PATH = "C:\\Users\\rosem\\PycharmProjects\\PrototypeTigramiteGui"
