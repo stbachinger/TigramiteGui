@@ -14,14 +14,12 @@ class SelectionWindow(Widget):
         self.data_widget = data_upload_widget(constants.DATA_PATH, "Data:")
         self.mask_widget = data_upload_widget(constants.DATA_PATH, "Masks: ")
         self.accordion = widgets.Accordion(
-            children=[self.data_widget, self.mask_widget, self.methods_widget.show(), self.test_widget.show()])
+            children=[self.data_widget, self.mask_widget, self.methods_widget.widget, self.test_widget.widget])
         self.accordion.set_title(2, 'Method')
         self.accordion.set_title(3, 'Test')
         self.accordion.set_title(0, 'Data')
         self.accordion.set_title(1, 'Mask')
 
-    def show_selection_window(self):
-        return self.accordion
-
     def get_current_values(self):
-        return self.data_widget.value, self.mask_widget.value, self.methods_widget.get_value(), self.test_widget.get_value(), self.methods_widget.get_parameter_values(), self.test_widget.get_parameter_values()
+        return self.data_widget.value, self.mask_widget.value, self.methods_widget.get_value(), \
+               self.test_widget.get_value(), self.methods_widget.get_parameter_values(), self.test_widget.get_parameter_values()

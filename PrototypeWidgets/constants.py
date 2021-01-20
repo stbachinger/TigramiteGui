@@ -153,7 +153,22 @@ def general_test_parameter():
 
 TEST_PARAMETER = {
     "ParCorr": general_test_parameter(),
-    "GPDC": general_test_parameter().update({
+    "GPDC": general_test_parameter(),
+    "CMIknn": general_test_parameter(),
+    "CMIsymb": general_test_parameter(),
+    "OracleCI": {
+        "link_coeffs": {
+            "name": "link_coeffs",
+            "dtype": "dict",
+            "default": "None"
+        }, "verbosity": {
+            "name": "verbosity",
+            "dtype": "int",
+            "default": "0"
+        },
+    },
+}
+TEST_PARAMETER["GPDC"].update({
         "null_dist_filename": {
             "name": "null_dist_filename",
             "dtype": "str",
@@ -168,8 +183,8 @@ TEST_PARAMETER = {
             "dtype": "dict",
             "default": "None"
         },
-    }),
-    "CMIknn": general_test_parameter().update({
+    })
+TEST_PARAMETER["CMIknn"].update({
         "knn": {
             "name": "knn",
             "dtype": "float",
@@ -193,8 +208,9 @@ TEST_PARAMETER = {
             "selection": ['fixed_thres', 'shuffle_test'],
             "default": "'shuffle_test'"
         },
-    }),
-    "CMIsymb": general_test_parameter().update({
+    })
+
+TEST_PARAMETER["CMIsymb"].update({
         "n_symbs": {
             "name": "n_symbs",
             "dtype": "int",
@@ -213,18 +229,5 @@ TEST_PARAMETER = {
             "selection": ['fixed_thres', 'shuffle_test'],
             "default": "'shuffle_test'"
         },
-    }),
-    "OracleCI": {
-        "link_coeffs": {
-            "name": "link_coeffs",
-            "dtype": "dict",
-            "default": "None"
-        }, "verbosity": {
-            "name": "verbosity",
-            "dtype": "int",
-            "default": "0"
-        },
-    },
-}
-
+    })
 DATA_PATH = "C:\\Users\\rosem\\PycharmProjects\\PrototypeTigramiteGui"

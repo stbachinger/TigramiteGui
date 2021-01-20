@@ -24,7 +24,7 @@ class ProjectWindow:
     def show(self):
         return widgets.VBox(
             [
-                self.SelectionWindow.show_selection_window(),
+                self.SelectionWindow.accordion,
                 widgets.HBox([self.run_button]),
                 widgets.HBox([self.terminal_out.show(),
                               widgets.VBox(
