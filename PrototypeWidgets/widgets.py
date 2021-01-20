@@ -30,10 +30,11 @@ class ParameterSelectionWidget(Widget):
             description="+"
         )
         self.parameter_dropdown = widgets.Dropdown(options=[])
-        self.parameters_widget = None
-        self.parameter_accordion = None
+        self.parameters_widget = widgets.VBox(children=[])
+        self.parameter_accordion = widgets.Accordion(children=[])
         self.current_parameter = None
         self.used_parameters = []
+        self.parameter_accordion.set_title(0, "Parameter Selection")
         self.setup(parameter_dict)
 
     def setup(self, params):
@@ -43,13 +44,8 @@ class ParameterSelectionWidget(Widget):
             values.append(x)
         self.parameter_dropdown.options = values
         self.parameter_dropdown.observe(self.on_change, names="value")
-        self.parameters_widget = widgets.VBox(
-            children=[widgets.HBox([self.parameter_dropdown, self.add_parameter_button])]
-        )
-        self.parameter_accordion = widgets.Accordion(
-            children=[self.parameters_widget]
-        )
-        self.parameter_accordion.set_title(0, "Parameter Selection")
+        self.parameters_widget.children = [widgets.HBox([self.parameter_dropdown, self.add_parameter_button])]
+        self.parameter_accordion.children = [self.parameters_widget]
         self.current_parameter = values[0]
         self.add_parameter_button.on_click(self.on_button_clicked)
         return self
