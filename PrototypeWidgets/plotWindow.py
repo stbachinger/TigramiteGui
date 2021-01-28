@@ -7,14 +7,24 @@ from PrototypeWidgets import constants
 class PlotOut(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.out = widgets.Output(layout={'border': '1px solid black'})
-        self.plots = plots_widget(constants.PLOTS, constants.PLOTS[0])
+        self.out = widgets.Output(
+            layout={
+                'border': '1px solid black',
+                'width': '300px',
+                'height': '300px',
+                'overflow': 'scroll'
+
+            })
+        self.plot_selection_widget = plots_widget(constants.PLOTS, constants.PLOTS[0])
+        self.title = widgets.HTML(
+            value="<H3>Plots</H3>",
+        )
 
     def show(self):
-        return widgets.VBox([self.plots, self.out])
+        return widgets.VBox([self.title, self.out, self.plot_selection_widget])
 
     def get_current_values(self):
-        return self.plots.value
+        return self.plot_selection_widget.value
 
     def clear(self):
         self.out.clear_output()

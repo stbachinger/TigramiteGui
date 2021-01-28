@@ -14,7 +14,7 @@ def calculateResults(Data, Mask, Method, Test, method_params, test_params, termi
             dataframe = pp.DataFrame(data, mask=mask)
         else:
             dataframe = pp.DataFrame(data)
-        cond_ind_test = getCondIndTest(Test, test_params)
+        cond_ind_test = get_cond_ind_test(Test, test_params)
         pcmci = PCMCI(
             dataframe=dataframe,
             cond_ind_test=cond_ind_test,
@@ -74,27 +74,27 @@ def makePlot(plot_type, pcmci, results, plot_out):
     return True
 
 
-def getCondIndTest(Test, test_params):
-    #print(Test)
+def get_cond_ind_test(test, test_params):
+    #print(test)
     if test_params:
-        if Test == "ParCorr":
+        if test == "ParCorr":
             return ParCorr(**test_params)
-        elif Test == "GPDC":
+        elif test == "GPDC":
             return GPDC(**test_params)
-        elif Test == "CMIknn":
+        elif test == "CMIknn":
             return CMIknn(**test_params)
-        elif Test == "CMIsymb":
+        elif test == "CMIsymb":
             return CMIsymb(**test_params)
         else:
             raise Exception("Something is not right here.")
     else:
-        if Test == "ParCorr":
-            return ParCorr(significance='analytic')
-        elif Test == "GPDC":
+        if test == "ParCorr":
+            return ParCorr()
+        elif test == "GPDC":
             return GPDC()
-        elif Test == "CMIknn":
+        elif test == "CMIknn":
             return CMIknn()
-        elif Test == "CMIsymb":
+        elif test == "CMIsymb":
             return CMIsymb()
         else:
             raise Exception("Something is not right here.")

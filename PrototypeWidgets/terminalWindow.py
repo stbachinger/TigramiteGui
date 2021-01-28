@@ -6,10 +6,19 @@ class TerminalOutput(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.out_put = widgets.Output(
-            layout={'border': '1px solid black'}, )
+            layout={
+                'border': '1px solid black',
+                'width': '300px',
+                'height': '300px',
+                'overflow': 'scroll',
+            }
+        )
+        self.title = widgets.HTML(
+            value="<H3>Terminal</H3>",
+        )
 
     def show(self):
-        return self.out_put
+        return widgets.VBox([self.title, self.out_put])
 
     def clear(self):
         self.out_put.clear_output()

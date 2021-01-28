@@ -52,7 +52,6 @@ class ParameterSelectionWidget(Widget):
 
     def on_button_clicked(self, b):
         parameter = Parameter(self.parameters[self.current_parameter])
-        print("called")
         self.current_parameter_widgets.append(parameter.widget)
         self.used_parameters.append(parameter)
         self.parameters_widget.children = tuple(list(self.parameters_widget.children) + [parameter.widget])
