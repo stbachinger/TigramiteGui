@@ -5,4 +5,3 @@ from .methods import *
 from .plotWindow import *
 from .projectWindow import *
 from .terminalWindow import *
-from .tappingWindow import *

@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from tigramite import data_processing as pp
 from tigramite import plotting as tp
-from tigramite.independence_tests import ParCorr, GPDC, CMIknn, CMIsymb
+from tigramite.independence_tests import ParCorr, GPDC, CMIknn, CMIsymb, OracleCI
 from tigramite.pcmci import PCMCI
 
 
@@ -20,6 +20,7 @@ def calculateResults(Data, Mask, Method, Test, method_params, test_params, termi
             cond_ind_test=cond_ind_test,
             verbosity=1)
         if method_params:
+            print("with", method_params)
             if Method == "PCMCI":
                 results = pcmci.run_pcmci(**method_params)
             elif Method == "PCMCI+":
@@ -85,6 +86,8 @@ def get_cond_ind_test(test, test_params):
             return CMIknn(**test_params)
         elif test == "CMIsymb":
             return CMIsymb(**test_params)
+        elif test == "OracleCI":
+            return OracleCI(**test_params)
         else:
             raise Exception("Something is not right here.")
     else:
@@ -96,5 +99,7 @@ def get_cond_ind_test(test, test_params):
             return CMIknn()
         elif test == "CMIsymb":
             return CMIsymb()
+        elif test == "OracleCI":
+            return OracleCI()
         else:
             raise Exception("Something is not right here.")

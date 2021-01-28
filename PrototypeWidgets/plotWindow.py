@@ -10,7 +10,8 @@ class PlotOut(Widget):
         self.out = widgets.Output(
             layout={
                 'border': '1px solid black',
-                'width': '300px',
+                'min_width': '300px',
+                'width': 'auto',
                 'height': '300px',
                 'overflow': 'scroll'
 
