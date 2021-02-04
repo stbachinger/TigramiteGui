@@ -1,3 +1,4 @@
+import os
 METHODS = ["PCMCI", "PCMCI+"]
 TESTS = ["ParCorr", "GPDC", "CMIknn", "CMIsymb", "OracleCI"]
 PLOTS = ["Process Graph", "Time series graph", "Lagged Correlation"]
@@ -41,8 +42,8 @@ METHOD_PARAMETER = {
             "default": "None"
         }, "fdr_method": {
             "name": "fdr_method",
-            "dtype": "string",
-            "default": "none"
+            "dtype": "str",
+            "default": "'none'"
         },
     },
     "PCMCI+": {
@@ -65,7 +66,8 @@ METHOD_PARAMETER = {
         }, "contemp_collider_rule": {
             "name": "contemp_collider_rule",
             "dtype": "selection",
-            "default": "'majority', 'conservative', 'none'"
+            "selection": ['majority', 'conservative', 'none'],
+            "default": 'none',
         }, "conflict_resolution": {
             "name": "conflict_resolution",
             "dtype": "bool",
@@ -92,7 +94,7 @@ METHOD_PARAMETER = {
             "default": "None"
         }, "fdr_method": {
             "name": "fdr_method",
-            "dtype": "string",
+            "dtype": "str",
             "default": "none"
         },
     }
@@ -230,4 +232,4 @@ TEST_PARAMETER["CMIsymb"].update({
             "default": "'shuffle_test'"
         },
     })
-DATA_PATH = "C:\\Users\\rosem\\PycharmProjects\\PrototypeTigramiteGui"
+DATA_PATH = os.getcwd() #or insert here any directory

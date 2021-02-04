@@ -1,18 +1,18 @@
 import ipywidgets as widgets
 from ipywidgets import Widget
-from PrototypeWidgets import DropdownSelectionWidget, constants as constants, data_upload_widget
-import PrototypeWidgets.constants as constants
+from PrototypeWidgets import DropdownSelectionWidget, data_upload_widget
+
 
 
 class SelectionWindow(Widget):
-    def __init__(self, **kwargs):
+    def __init__(self, data_path, methods, method_parameters, tests, test_parameters, **kwargs):
         super().__init__(**kwargs)
-        self.methods_widget = DropdownSelectionWidget(constants.METHODS, constants.METHODS[0], "Methods:",
-                                                        constants.METHOD_PARAMETER)
-        self.test_widget = DropdownSelectionWidget(constants.TESTS, constants.TESTS[0], "Tests:",
-                                                     constants.TEST_PARAMETER)
-        self.data_widget = data_upload_widget(constants.DATA_PATH, "Data:")
-        self.mask_widget = data_upload_widget(constants.DATA_PATH, "Masks: ")
+        self.methods_widget = DropdownSelectionWidget(methods, methods[0], "Methods:",
+                                                      method_parameters)
+        self.test_widget = DropdownSelectionWidget(tests, tests[0], "Tests:",
+                                                   test_parameters)
+        self.data_widget = data_upload_widget(data_path, "Data:")
+        self.mask_widget = data_upload_widget(data_path, "Masks: ")
         self.accordion = widgets.Accordion(
             children=[self.data_widget, self.mask_widget, self.methods_widget.widget, self.test_widget.widget])
         self.accordion.set_title(2, 'Method')

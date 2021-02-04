@@ -1,15 +1,18 @@
-# this includes all the widgets needed for the notebook
+"""This file contains all the widget functionality"""
+
+# Author: Sarah Bachinger <sarahbachinger@gmx.de>
+# License: GNU General Public License v3.0
 import os
 import ipywidgets as widgets
 from ipywidgets import Widget
-from IPython import display
 
 
 def data_upload_widget(path_of_data, name):
     """Widget used for data and mask upload"""
     list_dir = []
     for entry in os.scandir(path_of_data):
-        list_dir.append(entry.name)
+        if ".npy" in entry.name:
+            list_dir.append(entry.name)
     list_dir.append("none")
     return widgets.Dropdown(
         options=list_dir,
@@ -38,6 +41,7 @@ class ParameterSelectionWidget(Widget):
         self.setup(parameter_dict)
 
     def setup(self, params):
+        """Sets the different parameters up; call when update"""
         self.parameters = params
         values = []
         for x in self.parameters:
@@ -47,10 +51,11 @@ class ParameterSelectionWidget(Widget):
         self.parameters_widget.children = [widgets.HBox([self.parameter_dropdown, self.add_parameter_button])]
         self.parameter_accordion.children = [self.parameters_widget]
         self.current_parameter = values[0]
-        self.add_parameter_button.on_click(self.on_button_clicked)
+        self.add_parameter_button.on_click(self.add_parameter_to_parameter_widget)
         return self
 
-    def on_button_clicked(self, b):
+    def add_parameter_to_parameter_widget(self, b):
+        """adds """
         parameter = Parameter(self.parameters[self.current_parameter])
         self.current_parameter_widgets.append(parameter.widget)
         self.used_parameters.append(parameter)
