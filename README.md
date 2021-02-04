@@ -1,6 +1,6 @@
 # PrototypeTigramiteGui
 
-This repostory contains the prototype for a graphic user interface for the causal time series analysis tool [tigramite](https://github.com/jakobrunge/tigramite)
+This repostory contains the prototype for a graphic user interface for the causal time series analysis tool [tigramite](https://github.com/jakobrunge/tigramite).
 
 ## Setup
 
@@ -9,11 +9,20 @@ Follow these steps:
 - go to \path
 - `pip install .`
 
+## How to use it
+After installation, open a new Jupyter Notebook or open the existing in the project. The following code will import and open the prototype.
+
+`from PrototypeWidgets import ProjectWindow`
+
+`ProjectWindow().show()`
+
 
 ## License
 Copyright (c) 2020-2021 Sarah Bachinger
+See the LICENSE.txt file for more information
+Also check the tigramite repository for their license
 
-## References
+## References for Tigramite
 
 - J. Runge, P. Nowack, M. Kretschmer, S. Flaxman, D. Sejdinovic, Detecting and quantifying causal associations in large nonlinear time series datasets. Sci. Adv. 5, eaau4996 (2019). https://advances.sciencemag.org/content/5/11/eaau4996
 - J. Runge (2020): Discovering contemporaneous and lagged causal relations in autocorrelated nonlinear time series datasets. Proceedings of the 36th Conference on Uncertainty in Artificial Intelligence, UAI 2020,Toronto, Canada, 2019, AUAI Press, 2020. http://auai.org/uai2020/proceedings/579_main_paper.pdf
