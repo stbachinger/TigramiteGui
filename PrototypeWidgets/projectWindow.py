@@ -1,3 +1,5 @@
+"""Module to be imported in the Jupyter Notebook"""
+# License: GNU General Public License v3.0
 import ipywidgets as widgets
 import PrototypeWidgets.selectionWindow as sw
 from PrototypeWidgets.plotWindow import PlotOut
@@ -24,6 +26,7 @@ class ProjectWindow:
         self.plots_button.on_click(self.on_plot_button_clicked)
 
     def show(self):
+        """Shows the ProjectWindow in the Jupyter Notebook"""
         return widgets.VBox(
             [
                 self.SelectionWindow.accordion,
@@ -35,10 +38,12 @@ class ProjectWindow:
             ])
 
     def on_run_button_clicked(self, b):
+        """Handles the functionality when the Run button is clicked"""
         data, mask, method, test, method_params, test_params = self.SelectionWindow.get_current_values()
         self.pcmci, self.results = calculate_results(data, mask, method, test, method_params, test_params,
                                                      self.terminal_out.get_output())
 
     def on_plot_button_clicked(self, b):
+        """Handles the functionality when the Plot button is clicked"""
         plot_type = self.plot_out.get_current_values()
         result = make_plot(plot_type, self.pcmci, self.results, self.plot_out.get_output())

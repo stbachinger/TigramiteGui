@@ -1,6 +1,4 @@
 """This file contains all the widget functionality"""
-
-# Author: Sarah Bachinger <sarahbachinger@gmx.de>
 # License: GNU General Public License v3.0
 import os
 import ipywidgets as widgets
@@ -55,17 +53,20 @@ class ParameterSelectionWidget(Widget):
         return self
 
     def add_parameter_to_parameter_widget(self, b):
-        """adds """
+        """Adds Paramter to parameter widget when added in the dropdown"""
         parameter = Parameter(self.parameters[self.current_parameter])
         self.current_parameter_widgets.append(parameter.widget)
         self.used_parameters.append(parameter)
         self.parameters_widget.children = tuple(list(self.parameters_widget.children) + [parameter.widget])
 
     def on_change(self, change):
+        """Called when parameter dropdown value is changed"""
         if change['type'] == 'change' and change['name'] == 'value':
             self.current_parameter = change['new']
 
     def get_currently_selected_parameters(self):
+        """returns the currently selected parameters the user want to add to the calculation, turns them into a
+        dictionary"""
         dict_values = {}
         for para in self.used_parameters:
             name, value = para.get_current_value()
@@ -73,12 +74,14 @@ class ParameterSelectionWidget(Widget):
         return dict_values
 
     def update(self, params):
+        """Updates the dropdown menu with the new parameters"""
         self.used_parameters = []
         self.parameters_widget.children = [widgets.HBox([self.parameter_dropdown, self.add_parameter_button])]
         self.setup(params)
 
 
 class Parameter(Widget):
+    """Handles parameter functionality and data type"""
     def __init__(self, parameter, **kwargs):
         super().__init__(**kwargs)
         self.name = '%s' % parameter["name"]
@@ -100,6 +103,7 @@ class Parameter(Widget):
             raise Exception("something is wrong!")
 
     def get_current_value(self):
+        """return current name and value from the parameter"""
         return self.para_dict["name"], self.widget.value
 
 
@@ -121,17 +125,16 @@ class DropdownSelectionWidget(Widget):
         self.widget = widgets.VBox([self.drop_down, self.parameter_accordion.parameter_accordion])
 
     def get_value(self):
+        """Gets the current dropdown value"""
         return self.drop_down.value
 
     def on_change(self, change):
+        """Calls the update after dropdown item is changed"""
         if change['type'] == 'change' and change['name'] == 'value':
-            # print('change '+ change['new'])
-            self.update(self.parameter_dict[change['new']])
-
-    def update(self, params):
-        self.parameter_accordion.update(params)
+            self.parameter_accordion.update(self.parameter_dict[change['new']])
 
     def get_parameter_values(self):
+        """Gets the parameters values"""
         return self.parameter_accordion.get_currently_selected_parameters()
 
 

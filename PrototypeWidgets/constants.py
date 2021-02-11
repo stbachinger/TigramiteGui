@@ -1,3 +1,5 @@
+"""Handles the constants, everything that is displayed in the widget"""
+# License: GNU General Public License v3.0
 import os
 METHODS = ["PCMCI", "PCMCI+"]
 TESTS = ["ParCorr", "GPDC", "CMIknn", "CMIsymb", "OracleCI"]
@@ -61,7 +63,7 @@ METHOD_PARAMETER = {
             "default": "1"
         }, "pc_alpha": {
             "name": "pc_alpha",
-            "dtype": "float",  # or list of floats
+            "dtype": "float",
             "default": "0.01"
         }, "contemp_collider_rule": {
             "name": "contemp_collider_rule",
@@ -110,7 +112,7 @@ def general_test_parameter():
             "default": "None"
         }, "significance": {
             "name": "significance",
-            "dtype": "selection",  # selection from  ‘analytic’, ‘fixed_thres’ and ‘shuffle_test’
+            "dtype": "selection",
             "selection": ['analytic', 'fixed_thres', 'shuffle_test'],
             "default": "'analytic'"
         }, "fixed_thres": {

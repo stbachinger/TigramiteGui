@@ -1,3 +1,5 @@
+"""Handles the PlotOut Class"""
+# License: GNU General Public License v3.0
 import ipywidgets as widgets
 from ipywidgets import Widget
 from PrototypeWidgets import plots_widget
@@ -5,6 +7,7 @@ from PrototypeWidgets import constants
 
 
 class PlotOut(Widget):
+    """Handles plotting functionality"""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.out = widgets.Output(
@@ -22,13 +25,13 @@ class PlotOut(Widget):
         )
 
     def show(self):
+        """Shows the output widget"""
         return widgets.VBox([self.title, self.out, self.plot_selection_widget])
 
     def get_current_values(self):
+        """Returns current values"""
         return self.plot_selection_widget.value
 
-    def clear(self):
-        self.out.clear_output()
-
     def get_output(self):
+        """Gets output from output widget"""
         return self.out

@@ -1,6 +1,4 @@
 """This file contains all the tigramite functionality"""
-
-# Author: Sarah Bachinger <sarahbachinger@gmx.de>
 # License: GNU General Public License v3.0
 import numpy as np
 from matplotlib import pyplot as plt
@@ -37,6 +35,7 @@ def calculate_results(Data, Mask, Method, Test, method_params, test_params, term
 
 
 def make_plot(plot_type, pcmci, results, plot_out):
+    """Makes causal graphs from results, uses tigramite functionality and displays it in the PlotOut plot_out"""
     try:
         with plot_out:
             q_matrix = pcmci.get_corrected_pvalues(p_matrix=results['p_matrix'], fdr_method='fdr_bh')
@@ -74,11 +73,11 @@ def make_plot(plot_type, pcmci, results, plot_out):
     except Exception as e:
         print("Something went wrong here! Try executing the first part")
         print(e.message)
-
     return True
 
 
 def get_cond_ind_test(test, test_params):
+    """Selects conditional independence test and returns it"""
     if test_params:
         if test == "ParCorr":
             return ParCorr(**test_params)

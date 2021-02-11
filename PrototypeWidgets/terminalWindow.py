@@ -1,8 +1,11 @@
+"""Handles the TerminalOut Class"""
+# License: GNU General Public License v3.0
 import ipywidgets as widgets
 from ipywidgets import Widget
 
 
 class TerminalOutput(Widget):
+    """Shows the algorithm output"""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.out_put = widgets.Output(
@@ -19,10 +22,9 @@ class TerminalOutput(Widget):
         )
 
     def show(self):
+        """Shows the algorithm output"""
         return widgets.VBox([self.title, self.out_put])
 
-    def clear(self):
-        self.out_put.clear_output()
-
     def get_output(self):
+        """Gets the content of the output widget"""
         return self.out_put
