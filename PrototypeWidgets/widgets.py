@@ -7,7 +7,7 @@ import ipywidgets as widgets
 from ipywidgets import Widget
 
 
-def data_upload_widget(path_of_data, name):
+def DataUploadWidgets(path_of_data, name):
     """Widget used for data and mask upload"""
     list_dir = []
     for entry in os.scandir(path_of_data):

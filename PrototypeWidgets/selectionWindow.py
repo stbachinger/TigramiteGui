@@ -1,7 +1,6 @@
 import ipywidgets as widgets
 from ipywidgets import Widget
-from PrototypeWidgets import DropdownSelectionWidget, data_upload_widget
-
+from PrototypeWidgets import DropdownSelectionWidget, DataUploadWidgets
 
 
 class SelectionWindow(Widget):
@@ -11,8 +10,8 @@ class SelectionWindow(Widget):
                                                       method_parameters)
         self.test_widget = DropdownSelectionWidget(tests, tests[0], "Tests:",
                                                    test_parameters)
-        self.data_widget = data_upload_widget(data_path, "Data:")
-        self.mask_widget = data_upload_widget(data_path, "Masks: ")
+        self.data_widget = DataUploadWidgets(data_path, "Data:")
+        self.mask_widget = DataUploadWidgets(data_path, "Masks: ")
         self.accordion = widgets.Accordion(
             children=[self.data_widget, self.mask_widget, self.methods_widget.widget, self.test_widget.widget])
         self.accordion.set_title(2, 'Method')
