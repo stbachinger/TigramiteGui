@@ -7,7 +7,8 @@ This prototype is a module for JupyterNotebooks, so make sure to have a running 
 Tigramite depends on Python v3.7, to ensure compatibility, use also Python 3.7. 
 Also, it is necessary to have mpi.h. 
 For ubuntu systems, `sudo apt install libopenmpi-dev mpi`.
-In the past, using a conda environment for the prototype did not open it. If your window looks like this, install the package in your base python.
+In the past, using a conda environment for the prototype did not open it. If your window looks like this after running the cell, install the package in your base python.
+![prototype_wrong](https://user-images.githubusercontent.com/46448412/107674207-05512e80-6c97-11eb-8eb3-ca6748ef9e3d.png)
 
 
 ## Setup
