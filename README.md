@@ -4,6 +4,10 @@ This repostory contains the prototype for a graphic user interface for the causa
 
 ## Prerequisites
 This prototype is a module for JupyterNotebooks, so make sure to have a running version. Also, before using it, make sure to install [tigramite](https://github.com/jakobrunge/tigramite) on your device.
+Tigramite depends on Python v3.7, to ensure compatibility, use also Python 3.7. 
+Also, it is necessary to have mpi.h. 
+For ubuntu systems, `sudo apt install libopenmpi-dev mpi`.
+
 
 
 ## Setup
