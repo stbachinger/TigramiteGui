@@ -2,6 +2,10 @@
 
 This repostory contains the prototype for a graphic user interface for the causal time series analysis tool [tigramite](https://github.com/jakobrunge/tigramite).
 
+## Prerequisites
+This prototype is a module for JupyterNotebooks, so make sure to have a running version. Also, before using it, make sure to install [tigramite](https://github.com/jakobrunge/tigramite) on your device.
+
+
 ## Setup
 
 Follow these steps:
