@@ -7,7 +7,7 @@ setup(name='TigramiteGUIPrototype',
       url='https://github.com/laureleya/PrototypeTigramiteGui',
       author='Sarah Bachinger',
       author_email='sarah.bachinger@uni-jena.de',
-      license='MIT',
+      license='LGPL',
       packages=find_namespace_packages(),
       install_requires=[
           'ipywidgets',
