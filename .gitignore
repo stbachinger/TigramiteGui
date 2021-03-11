@@ -216,3 +216,5 @@ cython_debug/
 
 .idea/.name
 PrototypeWidgets/__pycache__/
+
+.ipynb_checkpoints
