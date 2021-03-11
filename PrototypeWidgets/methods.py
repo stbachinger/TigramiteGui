@@ -10,28 +10,34 @@ from tigramite.pcmci import PCMCI
 
 def calculate_results(Data, Mask, Method, Test, method_params, test_params, terminal_out):
     with terminal_out:
-        data = np.load(Data)
-        if Mask != "none":
-            mask = np.load(Mask)
-            dataframe = pp.DataFrame(data, mask=mask)
-        else:
-            dataframe = pp.DataFrame(data)
-        cond_ind_test = get_cond_ind_test(Test, test_params)
-        pcmci = PCMCI(
-            dataframe=dataframe,
-            cond_ind_test=cond_ind_test,
-            verbosity=1)
-        if method_params:
-            if Method == "PCMCI":
-                results = pcmci.run_pcmci(**method_params)
-            elif Method == "PCMCI+":
-                results = pcmci.run_pcmciplus(**method_params)
-        else:
-            if Method == "PCMCI":
-                results = pcmci.run_pcmci()
-            elif Method == "PCMCI+":
-                results = pcmci.run_pcmciplus()
-    return pcmci, results
+        try:
+            data = np.load(Data)
+            if Mask != "none":
+                mask = np.load(Mask)
+                dataframe = pp.DataFrame(data, mask=mask)
+            else:
+                dataframe = pp.DataFrame(data)
+            cond_ind_test = get_cond_ind_test(Test, test_params)
+            pcmci = PCMCI(
+                dataframe=dataframe,
+                cond_ind_test=cond_ind_test,
+                verbosity=1)
+            if method_params:
+                if Method == "PCMCI":
+                    results = pcmci.run_pcmci(**method_params)
+                elif Method == "PCMCI+":
+                    results = pcmci.run_pcmciplus(**method_params)
+            else:
+                if Method == "PCMCI":
+                    results = pcmci.run_pcmci()
+                elif Method == "PCMCI+":
+                    results = pcmci.run_pcmciplus()
+            return pcmci, results
+        except Exception as e:
+            print("Something went wrong here! Try another parameter!")
+            #print(e.message)
+    return {}, {}
+
 
 
 def make_plot(plot_type, pcmci, results, plot_out, alpha_value):
