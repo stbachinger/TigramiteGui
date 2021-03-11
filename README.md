@@ -9,14 +9,13 @@ Also, it is necessary to have mpi.h.
 For ubuntu systems, `sudo apt install libopenmpi-dev mpi`.
 In the past, using a conda environment for the prototype did not open it. If your window looks like this after running the cell, install the package in your base python.
 ![prototype_wrong](https://user-images.githubusercontent.com/46448412/107674207-05512e80-6c97-11eb-8eb3-ca6748ef9e3d.png)
-
+Here, only numpy arrays with the ending .npy can be loaded in. 
 
 ## Setup
 
 Follow these steps:
-- clone this repository on your computer (e.g. \path).
-- go to \path
-- `pip install .`
+- clone this repository on your computer (e.g. \<root>).
+- in <root> `pip install .`
 
 ## How to use it
 After installation, open a new Jupyter Notebook or open the existing in the project. The following code will import and open the prototype.
@@ -26,9 +25,16 @@ After installation, open a new Jupyter Notebook or open the existing in the proj
 `ProjectWindow().show()`
 
 It should look like this: 
-With the lower left corner showing the algorith output and the lower right corner the plot output. To use it, just put your .npy data in \path and load it in. All defaults are set and can be changed through the accordion view.
+With the lower left corner showing the algorith output and the lower right corner the plot output. 
+To use it, just put your .npy data in \path and load it in. 
+All defaults are set and can be changed through the accordion view.
 
 ![prototype_example](https://user-images.githubusercontent.com/46448412/107672680-798ad280-6c95-11eb-9491-ca2d2d60a8dd.png)
+
+## Examples 
+Go to the directory examples, and open ExampleNotebook.ipynb. The .npy files in the same directory
+can be used to get to know the workflow.
+
 
 ## License
 Copyright (c) 2020-2021 Sarah Bachinger
