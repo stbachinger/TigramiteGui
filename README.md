@@ -15,7 +15,7 @@ Here, only numpy arrays with the ending .npy can be loaded in.
 
 Follow these steps:
 - clone this repository on your computer (e.g. \<root>).
-- in <root> `pip install .`
+- in \<root> `pip install .`
 
 ## How to use it
 After installation, open a new Jupyter Notebook or open the existing in the project. The following code will import and open the prototype.
