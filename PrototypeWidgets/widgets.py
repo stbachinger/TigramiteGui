@@ -20,6 +20,29 @@ def DataUploadWidgets(path_of_data, name):
     )
 
 
+class AlphaLevelWidget(Widget):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.alpha_slider = widgets.FloatSlider(
+            value=0.01,
+            min=0,
+            max=1,
+            step=0.01,
+            description='Alpha_value:',
+            disabled=False,
+            continuous_update=False,
+            orientation='horizontal',
+            readout=True,
+            readout_format='.01f',
+        )
+
+    def show(self):
+        return self.alpha_slider
+
+    def get_alpha_value(self):
+        return self.alpha_slider.value
+
+
 class ParameterSelectionWidget(Widget):
     """Parameter Selection Template; should have an accordion widget filled with a Drop-down widget displaying values"""
 

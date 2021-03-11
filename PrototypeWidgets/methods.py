@@ -10,31 +10,37 @@ from tigramite.pcmci import PCMCI
 
 def calculate_results(Data, Mask, Method, Test, method_params, test_params, terminal_out):
     with terminal_out:
-        data = np.load(Data)
-        if Mask != "none":
-            mask = np.load(Mask)
-            dataframe = pp.DataFrame(data, mask=mask)
-        else:
-            dataframe = pp.DataFrame(data)
-        cond_ind_test = get_cond_ind_test(Test, test_params)
-        pcmci = PCMCI(
-            dataframe=dataframe,
-            cond_ind_test=cond_ind_test,
-            verbosity=1)
-        if method_params:
-            if Method == "PCMCI":
-                results = pcmci.run_pcmci(**method_params)
-            elif Method == "PCMCI+":
-                results = pcmci.run_pcmciplus(**method_params)
-        else:
-            if Method == "PCMCI":
-                results = pcmci.run_pcmci()
-            elif Method == "PCMCI+":
-                results = pcmci.run_pcmciplus()
-    return pcmci, results
+        try:
+            data = np.load(Data)
+            if Mask != "none":
+                mask = np.load(Mask)
+                dataframe = pp.DataFrame(data, mask=mask)
+            else:
+                dataframe = pp.DataFrame(data)
+            cond_ind_test = get_cond_ind_test(Test, test_params)
+            pcmci = PCMCI(
+                dataframe=dataframe,
+                cond_ind_test=cond_ind_test,
+                verbosity=1)
+            if method_params:
+                if Method == "PCMCI":
+                    results = pcmci.run_pcmci(**method_params)
+                elif Method == "PCMCI+":
+                    results = pcmci.run_pcmciplus(**method_params)
+            else:
+                if Method == "PCMCI":
+                    results = pcmci.run_pcmci()
+                elif Method == "PCMCI+":
+                    results = pcmci.run_pcmciplus()
+            return pcmci, results
+        except Exception as e:
+            print("Something went wrong here! Try another parameter!")
+            #print(e.message)
+    return {}, {}
 
 
-def make_plot(plot_type, pcmci, results, plot_out):
+
+def make_plot(plot_type, pcmci, results, plot_out, alpha_value):
     """Makes causal graphs from results, uses tigramite functionality and displays it in the PlotOut plot_out"""
     try:
         with plot_out:
@@ -46,7 +52,7 @@ def make_plot(plot_type, pcmci, results, plot_out):
                     val_matrix = results['val_matrix'],
                     alpha_level = 0.01)"""
             link_matrix = pcmci.return_significant_links(pq_matrix=q_matrix,
-                                                         val_matrix=results['val_matrix'], alpha_level=0.01)['link_matrix']
+                                                         val_matrix=results['val_matrix'], alpha_level=alpha_value)['link_matrix']
             if plot_type == "Process Graph":
                 tp.plot_graph(
                     val_matrix=results['val_matrix'],

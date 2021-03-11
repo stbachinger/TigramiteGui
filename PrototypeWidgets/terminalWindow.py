@@ -12,9 +12,12 @@ class TerminalOutput(Widget):
             layout={
                 'border': '1px solid black',
                 'min_width': '300px',
+                'min_height': '300px',
+                'max_height': '600px',
                 'width': 'auto',
-                'height': '300px',
-                'overflow': 'scroll',
+                'height': 'auto',
+                'overflow': 'scroll'
+
             }
         )
         self.title = widgets.HTML(
