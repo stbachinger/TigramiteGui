@@ -45,5 +45,5 @@ class ProjectWindow:
 
     def on_plot_button_clicked(self, b):
         """Handles the functionality when the Plot button is clicked"""
-        plot_type = self.plot_out.get_current_values()
-        result = make_plot(plot_type, self.pcmci, self.results, self.plot_out.get_output())
+        plot_type, alpha_value = self.plot_out.get_current_values()
+        result = make_plot(plot_type, self.pcmci, self.results, self.plot_out.get_output(), alpha_value)

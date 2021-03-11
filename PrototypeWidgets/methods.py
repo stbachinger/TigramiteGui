@@ -34,7 +34,7 @@ def calculate_results(Data, Mask, Method, Test, method_params, test_params, term
     return pcmci, results
 
 
-def make_plot(plot_type, pcmci, results, plot_out):
+def make_plot(plot_type, pcmci, results, plot_out, alpha_value):
     """Makes causal graphs from results, uses tigramite functionality and displays it in the PlotOut plot_out"""
     try:
         with plot_out:
@@ -46,7 +46,7 @@ def make_plot(plot_type, pcmci, results, plot_out):
                     val_matrix = results['val_matrix'],
                     alpha_level = 0.01)"""
             link_matrix = pcmci.return_significant_links(pq_matrix=q_matrix,
-                                                         val_matrix=results['val_matrix'], alpha_level=0.01)['link_matrix']
+                                                         val_matrix=results['val_matrix'], alpha_level=alpha_value)['link_matrix']
             if plot_type == "Process Graph":
                 tp.plot_graph(
                     val_matrix=results['val_matrix'],
