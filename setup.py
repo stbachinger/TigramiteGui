@@ -1,8 +1,8 @@
 from setuptools import setup, find_namespace_packages
 
-setup(name='TigramiteGUIPrototype',
+setup(name='TigramiteGUI',
       version='0.1',
-      python_requires=">3.7",
+      python_requires=">3.6",
       description='GUI prototype for causal time series analysis program tigramite',
       url='https://github.com/laureleya/PrototypeTigramiteGui',
       author='Sarah Bachinger',

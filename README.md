@@ -1,4 +1,4 @@
-# PrototypeTigramiteGui
+# TigramiteGui
 
 This repostory contains the prototype for a graphic user interface for the causal time series analysis tool [tigramite](https://github.com/jakobrunge/tigramite).
 
