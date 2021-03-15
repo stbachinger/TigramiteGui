@@ -14,9 +14,10 @@ class ProjectWindow:
 
     def __init__(self, data_path=constants.DATA_PATH, methods=constants.METHODS,
                  method_parameters=constants.METHOD_PARAMETER, tests=constants.TESTS,
-                 test_parameter=constants.TEST_PARAMETER):
+                 test_parameter=constants.TEST_PARAMETER, plots=constants.PLOTS, plot_parameter=constants.PLOT_PARAMETER):
         self.plots_button = plots_show_button()
-        self.SelectionWindow = sw.SelectionWindow(data_path, methods, method_parameters, tests, test_parameter)
+        self.SelectionWindow = sw.SelectionWindow(data_path, methods, method_parameters, tests, test_parameter,
+                                                  plots, plot_parameter)
         self.run_button = run_button_widget()
         self.results = None
         self.pcmci = None

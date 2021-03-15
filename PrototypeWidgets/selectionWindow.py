@@ -7,7 +7,7 @@ from PrototypeWidgets import DropdownSelectionWidget, DataUploadWidgets
 
 class SelectionWindow(Widget):
     """Handles the Selection functionality"""
-    def __init__(self, data_path, methods, method_parameters, tests, test_parameters, **kwargs):
+    def __init__(self, data_path, methods, method_parameters, tests, test_parameters, plots, plot_parameters, **kwargs):
         super().__init__(**kwargs)
         self.methods_widget = DropdownSelectionWidget(methods, methods[0], "Methods:",
                                                       method_parameters)
@@ -15,12 +15,20 @@ class SelectionWindow(Widget):
                                                    test_parameters)
         self.data_widget = DataUploadWidgets(data_path, "Data:")
         self.mask_widget = DataUploadWidgets(data_path, "Masks: ")
+        self.plot_widget = DropdownSelectionWidget(plots, plots[0], "Plots: ", plot_parameters)
         self.accordion = widgets.Accordion(
-            children=[self.data_widget, self.mask_widget, self.methods_widget.widget, self.test_widget.widget])
+            children=[
+                self.data_widget,
+                self.mask_widget,
+                self.methods_widget.widget,
+                self.test_widget.widget,
+                self.plot_widget,
+            ])
         self.accordion.set_title(2, 'Method')
         self.accordion.set_title(3, 'Test')
         self.accordion.set_title(0, 'Data')
         self.accordion.set_title(1, 'Mask')
+        self.accordion.set_title(4, 'Plot')
 
     def get_current_values(self):
         """Gets the current values from its attributes"""

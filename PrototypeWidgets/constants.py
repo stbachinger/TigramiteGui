@@ -3,7 +3,7 @@
 import os
 METHODS = ["PCMCI", "PCMCI+"]
 TESTS = ["ParCorr", "GPDC", "CMIknn", "CMIsymb", "OracleCI"]
-PLOTS = ["Process Graph", "Time series graph", "Lagged Correlation"]
+PLOTS = ["Process Graph", "Time Series Graph", "Lagged Correlation"]
 METHOD_PARAMETER = {
     "PCMCI": {
         "selected_links": {
@@ -234,4 +234,306 @@ TEST_PARAMETER["CMIsymb"].update({
             "default": "'shuffle_test'"
         },
     })
+
+
+PLOT_PARAMETER= {
+    "Time Series Graph": {
+        "sig_thres": {
+            "name": "sig_thres",
+            "dtype": "dict",
+            "default": {},
+        },
+        "var_names": {
+            "name": "var_names",
+            "dtype": "list",
+            "default": "None",
+        },
+        "fig_ax": {
+            "name": "fig_ax",
+            "dtype": "tuple",
+            "default": "None",
+        },
+        "figsize": {
+            "name": "figsize",
+            "dtype": "tuple",
+            "default": "None",
+        },
+        "save_name": {
+            "name": "save_name",
+            "dtype": "str",
+            "default": "None",
+        },
+        "link_colorbar_label": {
+            "name": "link_colorbar_label",
+            "dtype": "str",
+            "default": "MCI",
+        },
+        "link_width": {
+            "name": "link_width",
+            "dtype": "array-like",
+            "default": "None",
+        },
+        "order": {
+            "name": "order",
+            "dtype": "list",
+            "default": "None",
+        },
+        "arrow_linewidth": {
+            "name": "arrow_linewidth",
+            "dtype": "float",
+            "default": "30",
+        },
+        "vmin_edges": {
+            "name": "vmin_edges",
+            "dtype": "float",
+            "default": "1",
+        },
+        "vmax_edges": {
+            "name": "vmax_edges",
+            "dtype": "float",
+            "default": "1",
+        },
+        "edge_ticks": {
+            "name": "edge_ticks",
+            "dtype": "float",
+            "default": "0.4",
+        },
+        "cmap_edges": {
+            "name": "cmap_edges",
+            "dtype": "str",
+            "default": "RdBu_r",
+        },
+        "node_size": {
+            "name": "node_size",
+            "dtype": "float",
+            "default": "0.1",
+        },
+        "node_aspect": {
+            "name": "node_aspect",
+            "dtype": "float",
+            "default": "None",
+        },
+        "arrowhead_size": {
+            "name": "arrowhead_size",
+            "dtype": "int",
+            "default": "20",
+        },
+        "curved_radius": {
+            "name": "curved_radius",
+            "dtype": "float",
+            "default": "20",
+        },
+        "label_fontsize": {
+            "name": "label_fontsize",
+            "dtype": "int",
+            "default": "10",
+        },
+        "alpha": {
+            "name": "alpha",
+            "dtype": "float",
+            "default": "1",
+        },
+        "node_label_size": {
+            "name": "node_label_size",
+            "dtype": "int",
+            "default": "10",
+        },
+        "link_label_fontsize": {
+            "name": "link_label_fontsize",
+            "dtype": "int",
+            "default": "6",
+        },
+        "label_space_left": {
+            "name": "label_space_left",
+            "dtype": "float",
+            "default": "0.1",
+        },
+        "label_space_top": {
+            "name": "label_space_top",
+            "dtype": "float",
+            "default": "0.",
+        },
+        "network_lower_bound": {
+            "name": "network_lower_bound",
+            "dtype": "float",
+            "default": "0.2",
+        },
+        "inner_edge_style": {
+            "name": "inner_edge_style",
+            "dtype": "str",
+            "default": "dashed",
+        },
+    },
+    "Process Graph": {
+        "sig_thres": {
+            "name": "sig_thres",
+            "dtype": "dict",
+            "default": {},
+        },
+        "var_names": {
+            "name": "var_names",
+            "dtype": "list",
+            "default": "None",
+        },
+        "fig_ax": {
+            "name": "fig_ax",
+            "dtype": "tuple",
+            "default": "None",
+        },
+        "figsize": {
+            "name": "figsize",
+            "dtype": "tuple",
+            "default": "None",
+        },
+        "save_name": {
+            "name": "save_name",
+            "dtype": "str",
+            "default": "None",
+        },
+        "link_colorbar_label": {
+            "name": "link_colorbar_label",
+            "dtype": "str",
+            "default": "MCI",
+        },
+        "node_colorbar_label": {
+            "name": "node_colorbar_label",
+            "dtype": "str",
+            "default": "auto-MCI",
+        },
+        "link_width": {
+            "name": "link_width",
+            "dtype": "array-like",
+            "default": "None",
+        },
+        "link_attribute": {
+            "name": "link_attribute",
+            "dtype": "array-like",
+            "default": "None",
+        },
+        "node_pos": {
+            "name": "node_pos",
+            "dtype": "dict",
+            "default": "None",
+        },
+        "arrow_linewidth": {
+            "name": "arrow_linewidth",
+            "dtype": "float",
+            "default": "30",
+        },
+        "vmin_edges": {
+            "name": "vmin_edges",
+            "dtype": "float",
+            "default": "1",
+        },
+        "vmax_edges": {
+            "name": "vmax_edges",
+            "dtype": "float",
+            "default": "1",
+        },
+        "edge_ticks": {
+            "name": "edge_ticks",
+            "dtype": "float",
+            "default": "0.4",
+        },
+        "cmap_edges": {
+            "name": "cmap_edges",
+            "dtype": "str",
+            "default": "RdBu_r",
+        },
+        "vmin_nodes": {
+            "name": "vmin_nodes",
+            "dtype": "float",
+            "default": "0",
+        },
+        "vmax_nodes": {
+            "name": "vmax_nodes",
+            "dtype": "float",
+            "default": "1",
+        },
+        "node_ticks": {
+            "name": "node_ticks",
+            "dtype": "float",
+            "default": "0.4",
+        },
+        "cmap_nodes": {
+            "name": "cmap_nodes",
+            "dtype": "str",
+            "default": "OrRd",
+        },
+        "node_size": {
+            "name": "node_size",
+            "dtype": "float",
+            "default": "0.3",
+        },
+        "node_aspect": {
+            "name": "node_aspect",
+            "dtype": "float",
+            "default": "None",
+        },
+        "arrowhead_size": {
+            "name": "arrowhead_size",
+            "dtype": "int",
+            "default": "20",
+        },
+        "curved_radius": {
+            "name": "curved_radius",
+            "dtype": "float",
+            "default": "20",
+        },
+        "label_fontsize": {
+            "name": "label_fontsize",
+            "dtype": "int",
+            "default": "10",
+        },
+        "alpha": {
+            "name": "alpha",
+            "dtype": "float",
+            "default": "1",
+        },
+        "node_label_size": {
+            "name": "node_label_size",
+            "dtype": "int",
+            "default": "10",
+        },
+        "link_label_fontsize": {
+            "name": "link_label_fontsize",
+            "dtype": "int",
+            "default": "6",
+        },
+        "lag_array": {
+            "name": "lag_array",
+            "dtype": "array",
+            "default": "None",
+        },
+        "network_lower_bound": {
+            "name": "network_lower_bound",
+            "dtype": "float",
+            "default": "0.2",
+        },
+        "show_colorbar": {
+            "name": "show_colorbar",
+            "dtype": "bool",
+            "default": "true",
+        },
+
+    },
+    "Lagged Correlation": {
+        "name": {
+            "name": "name",
+            "dtype": "string",
+            "default": "none",
+        },
+        "setup_args": {
+            "name": "setup_args",
+            "dtype": "dict",
+            "default": {},
+        },
+        "add_lagfunc_args": {
+            "name": "add_lagfunc_args",
+            "dtype": "dict",
+            "default": {},
+        }
+    }
+}
+
 DATA_PATH = os.getcwd() #or insert here any directory

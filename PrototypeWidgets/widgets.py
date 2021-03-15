@@ -20,6 +20,17 @@ def DataUploadWidgets(path_of_data, name):
     )
 
 
+class ResultAccordion(Widget):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def show(self):
+        return
+
+    def get_values(self):
+        return
+
+
 class AlphaLevelWidget(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
