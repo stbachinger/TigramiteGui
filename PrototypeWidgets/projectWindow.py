@@ -14,15 +14,15 @@ class ProjectWindow:
 
     def __init__(self, data_path=constants.DATA_PATH, methods=constants.METHODS,
                  method_parameters=constants.METHOD_PARAMETER, tests=constants.TESTS,
-                 test_parameter=constants.TEST_PARAMETER):
+                 test_parameter=constants.TEST_PARAMETER, plots=constants.PLOTS, plot_parameter=constants.PLOT_PARAMETER):
         self.plots_button = plots_show_button()
-        self.SelectionWindow = sw.SelectionWindow(data_path, methods, method_parameters, tests, test_parameter)
+        self.SelectionWindow = sw.SelectionWindow(data_path, methods, method_parameters, tests, test_parameter, plots, plot_parameter)
         self.run_button = run_button_widget()
         self.results = None
         self.pcmci = None
         self.run_button.on_click(self.on_run_button_clicked)
         self.terminal_out = TerminalOutput()
-        self.plot_out = PlotOut()
+        self.plot_out = PlotOut(plots, plot_parameter)
         self.plots_button.on_click(self.on_plot_button_clicked)
 
     def show(self):
@@ -45,5 +45,5 @@ class ProjectWindow:
 
     def on_plot_button_clicked(self, b):
         """Handles the functionality when the Plot button is clicked"""
-        plot_type, alpha_value = self.plot_out.get_current_values()
-        result = make_plot(plot_type, self.pcmci, self.results, self.plot_out.get_output(), alpha_value)
+        plot_type, alpha_value, plot_parameters = self.plot_out.get_current_values()
+        result = make_plot(plot_type, self.pcmci, self.results, self.plot_out.get_output(), alpha_value, plot_parameters)

@@ -40,10 +40,10 @@ def calculate_results(Data, Mask, Method, Test, method_params, test_params, term
 
 
 
-def make_plot(plot_type, pcmci, results, plot_out, alpha_value):
+def make_plot(plot_type, pcmci, results, plot_out, alpha_value, plot_parameters):
     """Makes causal graphs from results, uses tigramite functionality and displays it in the PlotOut plot_out"""
-    try:
-        with plot_out:
+    with plot_out:
+        try:
             q_matrix = pcmci.get_corrected_pvalues(p_matrix=results['p_matrix'], fdr_method='fdr_bh')
             var_names = [r'$X^0$', r'$X^1$', r'$X^2$', r'$X^3$']
             """pcmci.print_significant_links(
@@ -54,20 +54,14 @@ def make_plot(plot_type, pcmci, results, plot_out, alpha_value):
             link_matrix = pcmci.return_significant_links(pq_matrix=q_matrix,
                                                          val_matrix=results['val_matrix'], alpha_level=alpha_value)['link_matrix']
             if plot_type == "Process Graph":
-                tp.plot_graph(
-                    val_matrix=results['val_matrix'],
-                    link_matrix=link_matrix,
-                    var_names=var_names,
-                    link_colorbar_label='cross-MCI',
-                    node_colorbar_label='auto-MCI',
+                tp.plot_graph(val_matrix=results['val_matrix'],
+                    link_matrix=link_matrix, **plot_parameters,
+                    #"""val_matrix=results['val_matrix'], link_matrix=link_matrix, var_names=var_names,link_colorbar_label='cross-MCI', node_colorbar_label='auto-MCI',"""
                 )
-            elif plot_type == "Time series graph":
+            elif plot_type == "Time Series Graph":
                 tp.plot_time_series_graph(
-                    figsize=(6, 4),
                     val_matrix=results['val_matrix'],
-                    link_matrix=link_matrix,
-                    var_names=var_names,
-                    link_colorbar_label='MCI',
+                    link_matrix=link_matrix, **plot_parameters
                 )
             elif plot_type == "Lagged Correlation":
                 correlations = pcmci.get_lagged_dependencies(tau_max=20, val_only=True)['val_matrix']
@@ -76,10 +70,10 @@ def make_plot(plot_type, pcmci, results, plot_out, alpha_value):
             else:
                 print("This should not be possible!")
             plt.show()
-    except Exception as e:
-        print("Something went wrong here! Try executing the first part")
-        print(e.message)
-    return True
+        except Exception as e:
+            print("Something went wrong here! Try executing the first part")
+            print(e.message)
+        return True
 
 
 def get_cond_ind_test(test, test_params):
