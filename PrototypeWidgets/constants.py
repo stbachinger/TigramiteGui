@@ -236,7 +236,7 @@ TEST_PARAMETER["CMIsymb"].update({
     })
 
 
-PLOT_PARAMETER= {
+PLOT_PARAMETER = {
     "Time Series Graph": {
         "sig_thres": {
             "name": "sig_thres",
