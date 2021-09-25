@@ -39,8 +39,7 @@ can be used to get to know the workflow.
 ## License
 Copyright (c) 2020-2021 Sarah Bachinger
 
-See the LICENSE.txt file for more information
-Also check the tigramite repository for their license
+See the LICENSE.txt file for more information. Also check the tigramite repository for their license.
 
 ## References for Tigramite
 
